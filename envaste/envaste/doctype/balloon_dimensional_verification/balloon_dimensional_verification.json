@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-15 09:24:01.817341",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sample_no",
+  "catheter_length_mm",
+  "tip_length_mm",
+  "distance_between_ring_markermm"
+ ],
+ "fields": [
+  {
+   "fieldname": "sample_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sample No"
+  },
+  {
+   "fieldname": "catheter_length_mm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Catheter Length (mm)"
+  },
+  {
+   "fieldname": "tip_length_mm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tip Length (mm)"
+  },
+  {
+   "fieldname": "distance_between_ring_markermm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Distance between Ring Marker(mm) "
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-15 10:04:15.392345",
+ "modified_by": "Administrator",
+ "module": "Envaste",
+ "name": "Balloon Dimensional Verification",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

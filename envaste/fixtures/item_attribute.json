@@ -1,0 +1,79 @@
+[
+ {
+  "attribute_name": "Dimension",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Item Attribute",
+  "from_range": 0.0,
+  "increment": 0.0,
+  "item_attribute_values": [
+   {
+    "abbr": "4.00 X 40 MM",
+    "attribute_value": "4.00 X 40 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "4.00 X 60 MM",
+    "attribute_value": "4.00 X 60 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "4.00 X 100 MM",
+    "attribute_value": "4.00 X 100 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "5.00 X 40 MM",
+    "attribute_value": "5.00 X 40 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "5.00 X 60 MM",
+    "attribute_value": "5.00 X 60 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "5.00 X 100 MM",
+    "attribute_value": "5.00 X 100 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "6.00 X 40 MM",
+    "attribute_value": "6.00 X 40 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "6.00 X 60 MM",
+    "attribute_value": "6.00 X 60 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   },
+   {
+    "abbr": "6.00 X 100 MM",
+    "attribute_value": "6.00 X 100 MM",
+    "parent": "Dimension",
+    "parentfield": "item_attribute_values",
+    "parenttype": "Item Attribute"
+   }
+  ],
+  "modified": "2024-03-04 16:05:47.221917",
+  "name": "Dimension",
+  "numeric_values": 0,
+  "to_range": 0.0
+ }
+]

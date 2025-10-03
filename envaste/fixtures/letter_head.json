@@ -1,0 +1,25 @@
+[
+ {
+  "align": "Left",
+  "content": "<img src=\"/assets/envaste/logo/images.png\">",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Letter Head",
+  "footer": "<p style=\"color:blue;font-size:10px; text-align:center; left:0; right:0; position:fixed; width: 100%; bottom: 20px;\">4th Floor, Maeva Tower Building, Ebène Business Park,\tRéduit - 72201, Mauritius   Tel: +230 463 2084   Email: info@envaste.com   www.envaste.com</p>",
+  "footer_align": "Left",
+  "footer_image": null,
+  "footer_image_height": 0.0,
+  "footer_image_width": 0.0,
+  "footer_script": null,
+  "footer_source": "HTML",
+  "header_script": null,
+  "image": null,
+  "image_height": 0.0,
+  "image_width": 0.0,
+  "is_default": 1,
+  "letter_head_name": "Envaste",
+  "modified": "2024-05-07 11:27:09.056195",
+  "name": "Envaste",
+  "source": "Image"
+ }
+]

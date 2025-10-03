@@ -1,0 +1,17 @@
+[
+ {
+  "custom_number_of_samples": 0.0,
+  "custom_number_of_samples_of_quality_control": null,
+  "docstatus": 0,
+  "doctype": "Item Group",
+  "image": null,
+  "is_group": 0,
+  "item_group_defaults": [],
+  "item_group_name": "Production supply",
+  "modified": "2024-09-11 14:32:07.454595",
+  "name": "Production supply",
+  "old_parent": "All Item Groups",
+  "parent_item_group": "All Item Groups",
+  "taxes": []
+ }
+]

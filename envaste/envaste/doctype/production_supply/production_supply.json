@@ -1,0 +1,32 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-09 16:46:05.798928",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "production"
+ ],
+ "fields": [
+  {
+   "fieldname": "production",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Production Supply",
+   "options": "Item"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-09 16:51:39.419307",
+ "modified_by": "Administrator",
+ "module": "Envaste",
+ "name": "Production Supply",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

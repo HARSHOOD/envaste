@@ -1,0 +1,32 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-05 11:38:17.041180",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tooling_name_or_code"
+ ],
+ "fields": [
+  {
+   "fieldname": "tooling_name_or_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tooling Name or Code",
+   "options": "Item"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-26 09:15:36.882199",
+ "modified_by": "Administrator",
+ "module": "Envaste",
+ "name": "Workstation Tooling Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

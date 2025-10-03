@@ -1,0 +1,38 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-15 09:42:57.408795",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "pressure_mm",
+  "compliance_diameter_atm"
+ ],
+ "fields": [
+  {
+   "fieldname": "pressure_mm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Pressure (mm)"
+  },
+  {
+   "fieldname": "compliance_diameter_atm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Compliance Diameter (atm) "
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-15 10:03:47.354056",
+ "modified_by": "Administrator",
+ "module": "Envaste",
+ "name": "COMPLIANCE RESULTS TM",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

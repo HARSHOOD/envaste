@@ -1,0 +1,118 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-19 09:44:57.301453",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sample",
+  "package_integrity",
+  "v1",
+  "v2",
+  "v3",
+  "v4",
+  "s1",
+  "s2",
+  "s3",
+  "s4",
+  "s5",
+  "d1"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "sample",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sample"
+  },
+  {
+   "columns": 1,
+   "fieldname": "package_integrity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Package Integrity"
+  },
+  {
+   "columns": 1,
+   "fieldname": "v1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "V1"
+  },
+  {
+   "columns": 1,
+   "fieldname": "v2",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "V2"
+  },
+  {
+   "columns": 1,
+   "fieldname": "v3",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "V3"
+  },
+  {
+   "columns": 1,
+   "fieldname": "v4",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "V4"
+  },
+  {
+   "columns": 1,
+   "fieldname": "s1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "S1"
+  },
+  {
+   "columns": 1,
+   "fieldname": "s2",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "S2"
+  },
+  {
+   "columns": 1,
+   "fieldname": "s3",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "S3"
+  },
+  {
+   "columns": 1,
+   "fieldname": "s4",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "S4"
+  },
+  {
+   "fieldname": "s5",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "S5"
+  },
+  {
+   "fieldname": "d1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "D1"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-03-20 11:15:12.843723",
+ "modified_by": "Administrator",
+ "module": "Envaste",
+ "name": "Visual",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

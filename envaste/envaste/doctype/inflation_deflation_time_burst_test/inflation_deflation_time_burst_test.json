@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-15 09:33:04.665017",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "inflation_device_ref",
+  "sample_no",
+  "deflation_time",
+  "burst_test"
+ ],
+ "fields": [
+  {
+   "fieldname": "inflation_device_ref",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Inflation Device Ref"
+  },
+  {
+   "fieldname": "sample_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sample No"
+  },
+  {
+   "fieldname": "deflation_time",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Deflation time"
+  },
+  {
+   "fieldname": "burst_test",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Burst Test"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-15 10:04:00.453051",
+ "modified_by": "Administrator",
+ "module": "Envaste",
+ "name": "INFLATION DEFLATION TIME BURST TEST",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,35 @@
+__version__ = "0.0.1"
+
+
+from erpnext.manufacturing.doctype.production_plan import production_plan
+from erpnext.manufacturing.doctype.production_plan.production_plan import ProductionPlan
+from erpnext.manufacturing.doctype.job_card.job_card import JobCard
+from erpnext.stock.doctype.stock_entry.stock_entry import StockEntry
+from erpnext.stock.doctype.stock_entry import stock_entry
+from erpnext.accounts.doctype.account import account 
+from envaste.overrides.custom_production_plan import custom_get_material_request_items,custom_add_items,custom_prepare_data_for_sub_assembly_items
+from envaste.overrides.custom_job_card import custom_validate_job_card,custom_validate_sequence_id
+from envaste.overrides.custom_stock_entry import custom_set_process_loss_qty , custom_load_items_from_bom
+from envaste.overrides.custom_update_account import custom_get_account_autoname
+# from frappe.utils import nestedset
+# from envaste.overrides.custom_accounts import custom_get_ancestors_of
+# nestedset.get_ancestors_of=custom_get_ancestors_of
+
+from erpnext.accounts import utils
+from envaste.overrides.custom_accounts import custom_get_autoname_with_number
+utils.get_autoname_with_number = custom_get_autoname_with_number
+
+production_plan.get_material_request_items=custom_get_material_request_items
+ProductionPlan.add_items = custom_add_items
+JobCard.validate_job_card =custom_validate_job_card
+JobCard.validate_sequence_id=custom_validate_sequence_id
+StockEntry.set_process_loss_qty = custom_set_process_loss_qty
+StockEntry.load_items_from_bom = custom_load_items_from_bom
+ProductionPlan.prepare_data_for_sub_assembly_items  = custom_prepare_data_for_sub_assembly_items
+account.get_account_autoname = custom_get_account_autoname
+
+
+
+
+
+
