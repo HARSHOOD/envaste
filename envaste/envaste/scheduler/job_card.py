@@ -4,7 +4,7 @@ def update_time_logs(doc, method):
     if doc.docstatus == 1:  
         for time_log in doc.get('time_logs'):
             time_log.custom_good = doc.total_completed_qty
-            time_log.custom_scrap = doc.process_loss_qty
+            # time_log.custom_scrap = doc.process_loss_qty
             time_log.save()
             # doc.append('scrap_items', {
             #     'item_code': doc.production_item,
