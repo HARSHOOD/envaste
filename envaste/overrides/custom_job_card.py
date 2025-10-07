@@ -25,6 +25,7 @@ from frappe.utils import (
     
     
 def custom_validate_job_card(self):
+
     if self.work_order and frappe.get_cached_value("Work Order", self.work_order, "status") == "Stopped":
         frappe.throw(
             _("Transaction not allowed against stopped Work Order {0}").format(
@@ -58,6 +59,7 @@ def custom_validate_job_card(self):
         # )
 
 def custom_validate_sequence_id(self):
+
     if self.is_corrective_job_card:
         return
 
@@ -84,12 +86,13 @@ def custom_validate_sequence_id(self):
 
     for row in data:
         if row.status != "Completed" and row.completed_qty < current_operation_qty:
-            frappe.throw(
-                _("{0}, complete the operation {1} before the operation {2}.").format(
-                    message, bold(row.operation), bold(self.operation)
-                ),
-                # OperationSequenceError,
-            )
+            pass
+            # frappe.throw(
+            #     _("{0}, complete the operation {1} before the operation {2}.").format(
+            #         message, bold(row.operation), bold(self.operation)
+            #     ),
+            #     # OperationSequenceError,
+            # )
 
         if row.completed_qty < current_operation_qty:
             pass
