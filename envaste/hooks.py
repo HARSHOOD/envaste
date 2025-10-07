@@ -5,6 +5,7 @@ app_description = "Envaste Medical Instruments"
 app_email = "ajay.kumar@nestorbird.com"
 app_license = "mit"
 # required_apps = []
+required_apps = ["erpnext"]
 
 # Includes in <head>
 # ------------------
