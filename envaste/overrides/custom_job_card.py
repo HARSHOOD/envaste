@@ -47,7 +47,7 @@ def custom_validate_job_card(self):
 
     if self.for_quantity and flt(total_completed_qty, precision) != flt(self.for_quantity, precision):
         total_completed_qty_label = bold(_("Total Completed Qty"))
-        qty_to_manufacture = bold(_("Qty to Manufacture"))
+        qty_to_manufacture = bold(_("Qty to Manufactures"))
 
         # frappe.throw(
         # 	_("The {0} ({1}) must be equal to {2} ({3})").format(
