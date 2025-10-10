@@ -5,7 +5,6 @@ app_description = "Envaste Medical Instruments"
 app_email = "ajay.kumar@nestorbird.com"
 app_license = "mit"
 # required_apps = []
-required_apps = ["erpnext"]
 
 # Includes in <head>
 # ------------------
@@ -371,7 +370,7 @@ fixtures = [
     {
         "doctype": "Print Format",
         "filters": [
-            ["name", "in", ["LHR Rev -03 for FG", "Main LHR Rev-03","LHR Rev- 03 SubAssembley","Delivery Note Packing Slip","PO FORMAT","Order Confirmation PF","Proforma Invoice Print Format","Credit Note PF","Sales Invoice PF"]]
+            ["name", "in", ["LHR Rev -03 for FG", "Main LHR Rev-03","LHR Rev- 03 SubAssembley","Delivery Note Packing Slip","PO FORMAT","Order Confirmation PF","Proforma Invoice Print Format","Credit Note PF","Sales Invoice PF" ]]
         ]
     }
 
