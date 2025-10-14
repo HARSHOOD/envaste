@@ -36,7 +36,8 @@ doctype_js = {
     "Sales Order" : "public/js/sales_order.js",
     "Workstation": "public/js/workstation.js",
     "Stock Entry":"public/js/stock_entry.js",
-    "Lot":"public/js/lot_batch.js"
+    "Lot":"public/js/lot_batch.js",
+    "Sales Invoice": "public/js/sales_invoice.js"
     # "Quality Inspection Template":"public/js/custom_qit.js",
     # "Quality Inspection":"public/js/custom_quality_inspection.js"
     
@@ -142,7 +143,7 @@ doc_events = {
         "on_submit":["envaste.envaste.scheduler.job_card.update_subsequent_job_cards",
                     "envaste.envaste.scheduler.job_card.update_time_logs"]
         # "on_submit":"envaste.envaste.scheduler.job_card.update_time_logs"
-        }
+        },
 }
 
 # Scheduled Tasks
@@ -370,8 +371,11 @@ fixtures = [
     {
         "doctype": "Print Format",
         "filters": [
-            ["name", "in", ["LHR Rev -03 for FG", "Main LHR Rev-03","LHR Rev- 03 SubAssembley","Delivery Note Packing Slip","PO FORMAT","Order Confirmation PF","Proforma Invoice Print Format","Credit Note PF","Sales Invoice PF" ]]
+            ["name", "in", ["LHR Rev -03 for FG", "Main LHR Rev-03","LHR Rev- 03 SubAssembley","New LHR Rev- 03 SubAssembley","Delivery Note Packing Slip","PO FORMAT","Order Confirmation PF","Proforma Invoice Print Format","Credit Note PF","Sales Invoice PF" ]]
         ]
     }
 
 ] 
+
+
+
