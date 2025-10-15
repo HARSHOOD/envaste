@@ -1,0 +1,173 @@
+
+<html lang="en">
+  <style>
+      .container {
+            width: 100%;
+        }
+    
+        .print-format td,
+        .print-format th {
+            padding: 6px !important;
+            font-size: 12px;
+        }
+    
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    
+        td,
+        th {
+            border: 1px solid #000;
+            text-align: left;
+            padding: 8px;
+            color: black !important;
+        }
+    
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: black !important;
+        }
+    
+        .line {
+            border-bottom: 3px solid black;
+            height: 1px;
+            display: block;
+        }
+    
+        .print-format label {
+            display: inline-block !important;
+            color: #000;
+        }
+    
+        .page-break {
+            page-break-after: always;
+        }
+    
+        input[type=checkbox] {
+            border: 1px solid #000;
+            margin-left: 3px;
+        }
+  </style>
+<body>
+    <section>
+    <div class="logo-img" style="display: flex;justify-content: space-between;align-items: flex-end;"> 
+    <img class="logo" src="/assets/envaste/logo/images.png" style="margin-top:-25px;height:98px">
+    <span><p style="text-align: end;font-weight: 600;">Ex2 to SOP-6 Rev02</p>
+    <h1 style="font-size: 28px;margin-top:0px;font-weight:700;">Purchase Order</h1>
+    </span>
+    </div>
+        <div class="container" style="border: 1px solid black;width:100%;padding-left:0px !important;padding-right:0px !important;   ">
+            
+            
+            <div class="third" style="display:flex;">
+            <div class="" style="padding: 10px !important;width: 100%;">
+            <div class="first" style="display: flex;width:100%;">
+             {% set p=frappe.get_doc("Address",doc.supplier_address)%} 
+                <p style="width: 50%; margin: inherit;">
+  <b>Date: </b>{{ frappe.utils.formatdate(doc.transaction_date, "dd/mm/yyyy") }}
+</p>
+
+                <p style="width: 50%;margin: inherit;"><b>PO. No.:</b> {{doc.name}}</p>
+            </div>
+            <div><p style="width: 50%;margin: inherit;float: right;"><b>Quote:</b> {{doc.custom_quote}}</p></div>
+          
+{% set address = frappe.get_doc("Address", doc.supplier_address) or None %}
+
+{% if address %}
+  <p><b>Company:</b> {{ address.address_title or "" }}</p>
+  <p><b>Address:</b></p>
+  <div style="margin-left: 3.5rem; margin-top: -18px; margin-bottom: -1rem;">
+    {% if address.address_line1 %}
+      <p>{{ address.address_line1 }}</p>
+    {% endif %}
+    {% if address.address_line2 %}
+      <p>{{ address.address_line2 }}</p>
+    {% endif %}
+    {% if address.city %}
+      <p>{{ address.city }}</p>
+    {% endif %}
+    {% if address.pincode %}
+      <p>{{ address.pincode }}</p>
+    {% endif %}
+    {% if address.state %}
+      <p>{{ address.state }}</p>
+    {% endif %}
+    {% if address.country %}
+      <p>{{ address.country }}</p>
+    {% endif %}
+  </div>
+  <br>
+{% endif %}
+
+
+
+            <p><b>Contact Person: </b>{{doc.contact_display or ""}}</p>
+            <p><b>Email: </b>{{p.email_id or ""}}</p>
+        <p><b>Telephone: </b>{{p.phone or ""}}</p>
+        <p><b>Fax : </b>{{p.fax or ""}}</p>
+        </div>
+         
+            </div>
+        </div>
+        <br>
+        <div><table border="1" style="font-size: 12px;margin-top:19px;width: 100%;">
+    <tr>
+                <th style="color:black;font-size: 11px;text-align:center;width: 7%;"><b>Line</b></th> 
+        <th style="color:black;font-size: 11px;text-align:center;width: 12%;"><b>Item Code</b></th>
+        <th style="color:black;font-size: 11px;text-align:center;width: 10%;"><b>Item Rev</b></th>
+        <th style="color:black;font-size: 11px;text-align:center;width: 40%;"><b>Description/Specifications</b></th>
+        <th style="color:black;font-size: 11px;text-align:center;width: 12%;"><b>Quantity</b></th>
+        <th style="color:black;font-size: 11px;text-align:center;width: 12%;"><b>Rate</b></th>
+        <th style="color:black;font-size: 11px;text-align:center;width: 12%;"><b>Total</b></th>
+    </tr>
+    {% for item in doc.items %}
+    <tr>
+    <td style="color:black;font-size: 11px; text-align:center;width : 7%;">{{ item.idx }}</td>
+        <td style="color:black;text-align : center; width : 7%">{{ item.item_code or "" }}</td>
+        <td style="color:black;text-align : center; width : 15%"> {{frappe.db.get_value("Item", doc.item_name, "custom_product_ref") or "" }}</td>
+          {% set single_item =frappe.get_doc("Item",item.item_code)%}
+        <td style="color:black;text-align : center; width : 7%">{{single_item.custom_description_1 or ""}} {{single_item.custom_description_2 or ""}} {{single_item.custom_description_3 or ""}}</td>
+        <td style="color:black;text-align : center; width : 7%">{{ item.qty or "" }}</td>
+        <td style="color:black;text-align : center; width : 9%">{{ item.rate or "" }}</td>
+        <td style="color:black;text-align : center; width : 7%">{{ item.amount or "" }}</td>
+
+    </tr>
+    {% endfor %}
+    </table>
+        </div>
+     <div style="width: 40%;float: right;margin-top: 2rem;border: 1px solid black;">
+     <p style="border-bottom:1px solid black;display: flex; padding-top: 4px;
+    padding-bottom: 4px;"><b>&nbsp; SUBTOTAL : </b> &nbsp;{{doc.currency}} {{doc.total or "0"}}&nbsp; </p>
+        <p style="border-bottom:1px solid black;display: flex; padding-top: 4px;
+    padding-bottom: 4px;"><b>&nbsp; VAT TOTAL : </b> &nbsp;{{doc.currency}} {{ doc.total_taxes_and_charges  or "0"}} &nbsp; </p>
+        <p style="display: flex;  padding-top: 4px;
+    padding-bottom: 4px;"><b>&nbsp; Total : </b> &nbsp;{{doc.currency}} {{ doc.grand_total  or "0"}}&nbsp; </p>
+    </div>
+<br>
+<div class="last">
+
+{% if doc.schedule_date %}
+ <b>Expected delivery date:</b> {{ frappe.utils.formatdate(doc.schedule_date, "dd/mm/yyyy") }}
+
+{% endif %}
+ 
+           <p><b>VAT Invoice to order of: Envaste ltd.</b></p>
+
+
+<p><b>Autorised By : Olivier Berc</p> <p style="    margin-left: 5rem;"><b>Executive Director</b></p>
+<br>
+        <table>
+            <tr>
+                <th colspan="10" style="padding-bottom:100px !important;"><b>Remarks:</b></th>
+            </tr>
+        </table>
+</div>
+    </section>
+
+    <p style="color:blue;font-size:10px; text-align:center; left:0; right:0; position:fixed; width: 100%; bottom: 20px;font-weight:400;">Envaste Ltd, 4th Floor, Maeva Tower Building, Ebène Business Park,	Réduit - 72201, Mauritius   Tel: +230 463 2084   Email: info@envaste.com   www.envaste.com</p>
+</body>
+</html>

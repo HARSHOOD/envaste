@@ -15,7 +15,8 @@ from erpnext.stock.doctype.stock_entry import stock_entry
 from erpnext.stock.doctype.item.item import get_item_defaults
 
 
-def custom_set_process_loss_qty(self):
+def custom_set_process_loss_qty(self): 
+    print("change in job card++++++++++++++++++++++++++++++++++++++++++++")
     if self.purpose not in ("Manufacture", "Repack"):
         return
 

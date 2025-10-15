@@ -37,7 +37,9 @@ doctype_js = {
     "Workstation": "public/js/workstation.js",
     "Stock Entry":"public/js/stock_entry.js",
     "Lot":"public/js/lot_batch.js",
-    "Sales Invoice": "public/js/sales_invoice.js"
+    "Sales Invoice": "public/js/sales_invoice.js", 
+    "Purchase Invoice":"public/js/purchase_invoice.js",
+    "Purchase Order":  "public/js/purchase_order.js",
     # "Quality Inspection Template":"public/js/custom_qit.js",
     # "Quality Inspection":"public/js/custom_quality_inspection.js"
     

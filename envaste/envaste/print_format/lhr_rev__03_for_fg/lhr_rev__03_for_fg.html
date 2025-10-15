@@ -1,0 +1,286 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        .container {
+            width: 100%;
+        }
+    
+        .print-format td,
+        .print-format th {
+            padding: 6px !important;
+            font-size: 12px;
+        }
+    
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    
+        td,
+        th {
+            border: 1px solid #000;
+            text-align: left;
+            padding: 8px;
+            color: black !important;
+        }
+    
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: black !important;
+        }
+    
+        .line {
+            border-bottom: 3px solid black;
+            height: 1px;
+            display: block;
+        }
+    
+        .print-format label {
+            display: inline-block !important;
+            color: #000;
+        }
+    
+        .page-break {
+            page-break-after: always;
+        }
+    
+        input[type=checkbox] {
+            border: 1px solid #000;
+            margin-left: 3px;
+        }
+    </style>
+    
+    <body>
+        <section class="container1">
+            <div class="container" style="padding-left:0px !important;padding-right:0px !important;">
+                {% set pitem = frappe.db.get_value('Item', {'item_code': doc.production_item}, ['custom_description_1',
+                'custom_description_2','custom_description_3'])%}
+                {% if pitem %}
+                {% set custom_description_1 = pitem[0] %}
+                {% set custom_description_2 = pitem[1] %}
+                {% set custom_description_3 = pitem[2] %}
+                <p style="">LHR-{{ custom_description_1 or "" }} -{{ custom_description_2 or "" }} -{{ custom_description_3 or "" }} Rev 03</p>
+                {% endif %}
+                <table>
+                    <tr>
+                        {% if pitem %}
+                        <th style="width: 370px;text-align: center;"><b>Lot History Record {{custom_description_1 or ""}} {{custom_description_2 or ""}} {{custom_description_3 or ""}}</b></th>
+                        {% endif %}
+                    </tr>
+                </table>
+            </div>
+            <br><br>
+            <div class="table-div2">
+                <table>
+                    {% set p =frappe.get_doc("Production Plan" ,doc.production_plan) %}
+                    {% if doc.sales_order %}
+                        {% set so = frappe.get_doc("Sales Order", doc.sales_order) %}
+                    {% else %}
+                        {% set so = None %}
+                    {% endif %}
+                    <tr>
+                        <th><b>Date :</b> {{so.transaction_date }}</th>
+                        <th><b>Work Order :</b> {{doc.name }}</th>
+                        <td colspan="3"><b>Description:</b>{{ custom_description_1 or "" }} {{ custom_description_2 or "" }} {{ custom_description_3 or "" }}</td>
+                    </tr>
+                    <tr>
+                        <th><b>Customer :</b>{{so.customer or ""}}</th>
+                        <th><b>Product Code:</b> {{doc.production_item or ""}}</th>
+                        <th><b>Product Print:</b> {{frappe.db.get_value("Item", doc.production_item, "custom_product_print") or "" }}</th>
+                    </tr>
+                    <tr>
+                        <th>{% set so_doc =frappe.get_doc("Sales Order",doc.sales_order)%}{%for sitems in so_doc.items%}{% if sitems.item_code ==doc.production_item%}<b>Quantity to Produce:</b>{{sitems.custom_so_qty_}}{% endif %}{% endfor %}</th>
+                        <th>{%for sitems in so_doc.items%}{% if sitems.item_code ==doc.production_item%}<b>Quantity Ordered:</b>{{sitems.qty}}</th>{% endif %}{% endfor %}
+                        <th><b>Lot# :</b>
+        {% set lots = frappe.get_all("Batch", 
+            filters={"reference_name": doc.name}, 
+            fields=["name", "batch_id"]) %}
+        
+        {% for lot in lots %}
+            {{ lot.batch_id or lot.name }}
+        {% endfor %}
+    </th>
+    
+                    </tr>
+                </table>
+                <br><br>
+                <b>BOM list</b><br><br>
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th style="width:10%"><b>Product code</b></th>
+                        <th style="width:10%"><b>Rev</b></th>
+                        <th style="width:40%"><b>Description</b></th>
+                        <th style="width:10%"><b>Qty/unit</b></th>
+                        <th style="width:10%"><b>Planned Qty</b></th>
+                        <th style="width:20%"><b>Lot#</b></th>
+                    </tr>
+                    <tr>
+                        {% set seit = frappe.db.get_value("Stock Entry", filters={"work_order": doc.name, "stock_entry_type": "Material Transfer for Manufacture"}) %}
+                        {% set wo1 = frappe.db.get_value("Work Order", filters={"production_plan": doc.production_plan, "name":["!=",doc.name]}) %}
+                        {% set setis = frappe.db.get_value("Stock Entry", filters={"work_order": wo1, "stock_entry_type": "Material Transfer for Manufacture"}) %}
+                        {% if seit %}
+                        {% set stock_entry = frappe.get_doc("Stock Entry", seit) %}
+                        {% endif %}
+                        {% set bom1 = "" %}
+                        {% if setis %}
+                        {% set stock_entry1 = frappe.get_doc("Stock Entry", setis) %}
+                        {% if stock_entry1.bom_no %}
+                        {% set bom1 = frappe.get_doc("BOM", stock_entry1.bom_no) %}
+                        {% endif %}
+                        {% endif %}
+                        {% set bomi = frappe.get_doc("BOM", doc.bom_no) %}
+                        {% for items in bomi.items %}
+                        <td>{{ items.idx }}</td>
+                        <td>{{ items.item_code }}</td>
+                        <td>{{ items.custom_product_rev or "" }}</td>
+                        <td>
+                            {% set ditem = frappe.db.get_value('Item', {'item_code':items.item_code}, ['custom_description_1', 'custom_description_2','custom_description_3']) %}
+                            {% if ditem %}
+                            {% set custom_description_1 = ditem[0] %}
+                            {% set custom_description_2 = ditem[1] %}
+                            {% set custom_description_3 = ditem[2] %}
+                            {{ custom_description_1 or "" }} {{ custom_description_2 or "" }} {{ custom_description_3 or "" }}
+                            {% endif %}
+                        </td>
+                        <td>{{ items.qty or "" }}</td>
+                        <td>{% for itemq in doc.required_items %} {% if itemq.item_code == items.item_code %}{{ itemq.required_qty or "" }} {{ items.uom or "" }}{% endif %}{% endfor %}</td>
+                        <td>
+                            {% if stock_entry %}
+                                {% for entry_item in stock_entry.items %}
+                                    {% if entry_item.item_code == items.item_code %}
+                                        {{ entry_item.batch_no or "" }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <br><br>
+                <div class="page-break"></div>
+                <table>
+            </div>
+            <br>
+            {% set bom = frappe.get_doc("BOM", doc.bom_no) %}
+            {% set w = frappe.get_list("Job Card", filters={"work_order": doc.name}, order_by='creation asc') %}
+            <br>
+            <div class="table-div3">
+                <div class="table-div" style="display: flex;">
+                    <table>
+                        <p style="margin-right: 0px;">LHR-{{ custom_description_1 or "" }} {{ custom_description_2 or "" }} {{ custom_description_3 or "" }} Rev 03</p>
+                        <tr>
+                            {% if pitem %}
+                            <th style="width: 370px;text-align: center;"><b>Lot History Record {{ custom_description_1 or "" }} {{ custom_description_2 or "" }} {{ custom_description_3 or "" }}</b></th>
+                            {% endif %}
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <table>
+                    <tr>
+                        <th colspan="5"><b>Work step Rationalization (Operator to fill revision No.)</b></th>
+                        <th colspan="4"><b>Completed Item Rationalization</b></th>
+                    </tr>
+                    <tr>
+                        <th><b>Op #</b></th>
+                        <th><b>Work step</b></th>
+                        <th><b>Start time</b></th>
+                        <th><b>End time</b></th>
+                        <th><b>Qty</b></th>
+                        <th><b>Good</b></th>
+                        <th><b>Scrap</b></th>
+                        <th><b>Initial & Sign</b></th>
+                        <th><b>Date</b></th>
+                    </tr>
+                    {% set lens = namespace({'len':7}) %}
+                    {% for data in w %}
+                        {% set job_card = frappe.get_doc("Job Card", data.name) %}
+                        {% if job_card.time_logs is defined and job_card.time_logs|length > 0 %}
+                            <tr>
+                                {% set lens.len = job_card.time_logs|length +1 %}
+                                <td rowspan="{{ lens.len }}">{{ loop.index }}</td>
+                                <td rowspan="{{ lens.len }}">{{ job_card.operation }}<br>
+                                    <p>{% set routing = frappe.get_doc("Routing", bom.routing) %}{% for routings in routing.operations %}{% if routings.operation == job_card.operation %}({{ routings.custom_wi or "" }}){% endif %}{% endfor %}</p>
+                                </td>
+                                {% for time in job_card.time_logs %}
+                                    <td>{{ time.from_time }}</td>
+                                    <td>{{ time.to_time }}</td>
+                                    <td>{{ time.completed_qty }}</td>
+                                    <td>{{ time.custom_good or "" }}</td>
+                                    <td>{{ time.custom_scrap or "" }}</td>
+                                    <td>{{ time.employee }}</td>
+                                    <td>{{ job_card.posting_date }}</td>
+                            </tr>
+                                {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td rowspan="7">{{ loop.index }}</td>
+                                <td rowspan="7">{{ job_card.operation }}<br>
+                                    <p>{% set routing = frappe.get_doc("Routing", bom.routing) %}{% for routings in routing.operations %}{% if routings.operation == job_card.operation %}({{ routings.custom_wi or "" }}){% endif %}{% endfor %}</p>
+                                </td>
+                                {% for _ in range(5) %}
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                            </tr><tr>
+                                {% endfor %}
+                        {% endif %}
+                        <tr>
+                            <td colspan="3"><b>Equipment</b><br>
+                                {% if job_card.workstation %}
+                                    {% set works = frappe.get_doc("Workstation", job_card.workstation) %}
+                                {% else %}
+                                    {% set works = None %}
+                                {% endif %}
+    
+                                {% for eq in works.custom_equipment %}
+                                    {% if eq.equipment %}
+                                        <label for="equipment_{{ loop.index }}">{{ eq.equipment }}</label>
+                                        <input type="checkbox" id="equipment_{{ loop.index }}" name="equipment_checkbox" value="{{ eq.equipment }}"><br>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td colspan="3"><b>Tooling</b><br>
+                                {% for u in works.custom_tooling %}
+                                    {% if u.tooling_name_or_code %}
+                                        <label for="tooling_{{ loop.index }}">{{ u.tooling_name_or_code }}</label>
+                                        <input type="checkbox" id="tooling_{{ loop.index }}" name="tooling_checkbox" value="{{ u.tooling_name_or_code }}"><br>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td colspan="2"><b>Production Supply</b><br>
+                                {% for ut in works.custom_production_supply %}
+                                    {% if ut.production %}
+                                        <label for="production_{{ loop.index }}">{{ ut.production }}</label>
+                                        <input type="checkbox" id="production_{{ loop.index }}" name="production_checkbox" value="{{ ut.production }}"><br>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <table>
+                    <tr>
+                        <th colspan="10" style="padding-bottom:100px !important;"><b>Remarks:</b></th>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </body>
+    
+    </html>
