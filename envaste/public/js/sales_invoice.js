@@ -23,20 +23,57 @@ frappe.ui.form.on('Sales Invoice', {
 
 
 frappe.ui.form.on("Sales Invoice", {
-
-    // Trigger when form loads
-    onload: function(frm) {
+    onload(frm) {
         update_customer_address_display(frm);
     },
-
-    // Trigger when customer_address changes
-    customer_address: function(frm) {
+    customer_address(frm) {
         update_customer_address_display(frm);
-    }
+    },
+   
 });
 
-// Common function to fetch and set address display
+
+// // Common function to fetch and set address display
+// function update_customer_address_display(frm) {
+//     if (!frm.doc.customer_address) {
+//         frm.set_value("address_display", "");
+//         return;
+//     }
+
+//     frappe.call({
+//         method: "envaste.envaste.api.fetch_customer_address.get_display_address",
+//         args: {
+//             address_name: frm.doc.customer_address,
+//             doc_name: "Sales Invoice"
+//         },
+//         callback: function(r) {
+//             if (r.message) {
+//                 setTimeout(() => {
+//                     if(frm.doc.address_display!=r.message){
+//                             // Temporarily make read-only field editable
+//                             frm.fields_dict["address_display"].df.read_only = 0;
+
+//                             frm.set_value("address_display", r.message);
+//                             frm.refresh_field("address_display");
+
+//                             // Make it read-only again
+//                             frm.fields_dict["address_display"].df.read_only = 1;
+//                     }
+//                 }, 500);
+//             }
+//         }
+//     });
+// }
+
+
+
+
+
+
 function update_customer_address_display(frm) {
+    console.log("Before update:", frm.doc.address_display);
+    console.log("Docstatus:", frm.doc.docstatus);
+
     if (!frm.doc.customer_address) {
         frm.set_value("address_display", "");
         return;
@@ -49,21 +86,20 @@ function update_customer_address_display(frm) {
             doc_name: "Sales Invoice"
         },
         callback: function(r) {
-            if (r.message) {
-                setTimeout(() => {
-                    // Temporarily make read-only field editable
-                    frm.fields_dict["address_display"].df.read_only = 0;
+            if (!r.message) return;
 
-                    frm.set_value("address_display", r.message);
-                    frm.refresh_field("address_display");
+            console.log("Fetched:", r.message);
 
-                    // Make it read-only again
-                    frm.fields_dict["address_display"].df.read_only = 1;
-                }, 500);
+            // Update only if Draft (0) or New (__islocal)
+            if (frm.doc.docstatus === 0 || frm.is_new()) {
+                frm.fields_dict["address_display"].df.read_only = 0;
+                frm.set_value("address_display", r.message);
+                frm.refresh_field("address_display");
+                frm.fields_dict["address_display"].df.read_only = 1;
+                console.log("After update:", frm.doc.address_display);
+            } else {
+                console.log("Submitted invoice - skipping update");
             }
         }
     });
 }
-
-
-
