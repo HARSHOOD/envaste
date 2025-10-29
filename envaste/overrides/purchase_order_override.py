@@ -8,14 +8,15 @@ def validate_multi_currency(doc, method):
     """
     supplier_currency = frappe.db.get_value("Supplier", doc.supplier, "default_currency")
     
-    # If PO currency differs, log a note and skip validation
     if doc.currency != supplier_currency:
-        frappe.logger().info(f"[Custom App] Currency override: {doc.name} using {doc.currency} instead of {supplier_currency}")
+        frappe.logger().info(f"[Envaste] Currency override: {doc.name} using {doc.currency} instead of {supplier_currency}")
         
-        # Force the system to keep exchange rate valid
+        # Ensure we have a valid conversion rate
         if not doc.conversion_rate or doc.conversion_rate <= 0:
             doc.conversion_rate = frappe.db.get_value(
                 "Currency Exchange",
                 {"from_currency": doc.currency, "to_currency": doc.company_currency},
                 "exchange_rate"
             ) or 1
+
+        doc.add_comment("Comment", f"Currency overridden from {supplier_currency} to {doc.currency} by Envaste custom logic.")
