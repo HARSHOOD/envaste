@@ -1,5 +1,4 @@
 import frappe
-from frappe import _
 
 def validate_multi_currency(doc, method):
     """
@@ -7,16 +6,24 @@ def validate_multi_currency(doc, method):
     Keeps supplier currency unchanged but allows per-transaction flexibility.
     """
     supplier_currency = frappe.db.get_value("Supplier", doc.supplier, "default_currency")
-    
+
+    if not supplier_currency:
+        return  # Supplier has no default currency set
+
     if doc.currency != supplier_currency:
-        frappe.logger().info(f"[Envaste] Currency override: {doc.name} using {doc.currency} instead of {supplier_currency}")
-        
+        frappe.logger().info(f"[Envaste] Currency override triggered on {doc.name} ({supplier_currency} → {doc.currency})")
+
         # Ensure we have a valid conversion rate
         if not doc.conversion_rate or doc.conversion_rate <= 0:
-            doc.conversion_rate = frappe.db.get_value(
+            rate = frappe.db.get_value(
                 "Currency Exchange",
                 {"from_currency": doc.currency, "to_currency": doc.company_currency},
                 "exchange_rate"
-            ) or 1
+            )
+            doc.conversion_rate = rate or 1
 
-        doc.add_comment("Comment", f"Currency overridden from {supplier_currency} to {doc.currency} by Envaste custom logic.")
+        # Add an informative comment for traceability
+        try:
+            doc.add_comment("Comment", f"Currency overridden from {supplier_currency} to {doc.currency} by Envaste logic.")
+        except Exception as e:
+            frappe.logger().warning(f"[Envaste] Could not add comment: {e}")
