@@ -89,7 +89,7 @@
         <div class="address-box" style="border-right: 1px solid black;">
           {% set address = frappe.get_doc("Address", doc.supplier_address) or None %}
           {% if address %}
-          <p> {{ address.address_title or "" }}</p>
+          <p> {{ address.address_title or "" }}</b></p>
           <!-- <p><b>Address:</b></p> -->
           <div style="margin-top: 10px">
             {% if address.address_line1 %}
