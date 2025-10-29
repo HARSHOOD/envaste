@@ -145,10 +145,7 @@ doc_events = {
         "on_submit":["envaste.envaste.scheduler.job_card.update_subsequent_job_cards",
                     "envaste.envaste.scheduler.job_card.update_time_logs"]
         # "on_submit":"envaste.envaste.scheduler.job_card.update_time_logs"
-        },
-    "Purchase Order": {
-            "validate": "envaste.overrides.purchase_order_override.validate_multi_currency"
-        }    
+        }, 
 }
 
 # Scheduled Tasks
