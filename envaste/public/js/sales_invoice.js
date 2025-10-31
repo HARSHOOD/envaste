@@ -22,15 +22,15 @@ frappe.ui.form.on('Sales Invoice', {
 
 
 
-frappe.ui.form.on("Sales Invoice", {
-    onload(frm) {
-        update_customer_address_display(frm);
-    },
-    customer_address(frm) {
-        update_customer_address_display(frm);
-    },
+// frappe.ui.form.on("Sales Invoice", {
+//     onload(frm) {
+//         update_customer_address_display(frm);
+//     },
+//     customer_address(frm) {
+//         update_customer_address_display(frm);
+//     },
    
-});
+// });
 
 
 // // Common function to fetch and set address display
@@ -70,36 +70,36 @@ frappe.ui.form.on("Sales Invoice", {
 
 
 
-function update_customer_address_display(frm) {
-    console.log("Before update:", frm.doc.address_display);
-    console.log("Docstatus:", frm.doc.docstatus);
+// function update_customer_address_display(frm) {
+//     console.log("Before update:", frm.doc.address_display);
+//     console.log("Docstatus:", frm.doc.docstatus);
 
-    if (!frm.doc.customer_address) {
-        frm.set_value("address_display", "");
-        return;
-    }
+//     if (!frm.doc.customer_address) {
+//         frm.set_value("address_display", "");
+//         return;
+//     }
 
-    frappe.call({
-        method: "envaste.envaste.api.fetch_customer_address.get_display_address",
-        args: {
-            address_name: frm.doc.customer_address,
-            doc_name: "Sales Invoice"
-        },
-        callback: function(r) {
-            if (!r.message) return;
+//     frappe.call({
+//         method: "envaste.envaste.api.fetch_customer_address.get_display_address",
+//         args: {
+//             address_name: frm.doc.customer_address,
+//             doc_name: "Sales Invoice"
+//         },
+//         callback: function(r) {
+//             if (!r.message) return;
 
-            console.log("Fetched:", r.message);
+//             console.log("Fetched:", r.message);
 
-            // Update only if Draft (0) or New (__islocal)
-            if (frm.doc.docstatus === 0 || frm.is_new()) {
-                frm.fields_dict["address_display"].df.read_only = 0;
-                frm.set_value("address_display", r.message);
-                frm.refresh_field("address_display");
-                frm.fields_dict["address_display"].df.read_only = 1;
-                console.log("After update:", frm.doc.address_display);
-            } else {
-                console.log("Submitted invoice - skipping update");
-            }
-        }
-    });
-}
+//             // Update only if Draft (0) or New (__islocal)
+//             if (frm.doc.docstatus === 0 || frm.is_new()) {
+//                 frm.fields_dict["address_display"].df.read_only = 0;
+//                 frm.set_value("address_display", r.message);
+//                 frm.refresh_field("address_display");
+//                 frm.fields_dict["address_display"].df.read_only = 1;
+//                 console.log("After update:", frm.doc.address_display);
+//             } else {
+//                 console.log("Submitted invoice - skipping update");
+//             }
+//         }
+//     });
+// }
